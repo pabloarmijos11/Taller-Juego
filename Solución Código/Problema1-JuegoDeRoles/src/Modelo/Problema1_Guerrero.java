@@ -1,6 +1,5 @@
 package Modelo;
 
-
 public class Problema1_Guerrero extends Problema1_Personaje {
 
     private int fuerzaCuerpoACuerpo;
@@ -12,7 +11,13 @@ public class Problema1_Guerrero extends Problema1_Personaje {
 
     @Override
     public int atacar() {
-        return fuerzaCuerpoACuerpo + (nivel * 5);
+        if (armaEquipada != null) {
+            int bonoArma = armaEquipada.getValor();
+            return (fuerzaCuerpoACuerpo + (nivel * 5)) + bonoArma;
+        } else {
+            int bonoArma = 0;
+            return (fuerzaCuerpoACuerpo + (nivel * 5)) + bonoArma;
+        }
     }
 
     @Override

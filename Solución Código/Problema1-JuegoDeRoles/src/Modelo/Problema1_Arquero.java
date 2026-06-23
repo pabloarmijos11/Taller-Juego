@@ -11,7 +11,13 @@ public class Problema1_Arquero extends Problema1_Personaje {
 
     @Override
     public int atacar() {
-        return precision + (nivel * 4);
+        if (armaEquipada != null) {
+            int bonoArma = armaEquipada.getValor();
+            return (precision + (nivel * 4)) + bonoArma;
+        } else {
+            int bonoArma = 0;
+            return (precision + (nivel * 4)) + bonoArma;
+        }
     }
 
     @Override
