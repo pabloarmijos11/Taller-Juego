@@ -11,14 +11,56 @@ public abstract class Problema1_Personaje {
     protected List<Problema1_Objeto> inventario = new ArrayList<>();
     protected Problema1_Arma armaEquipada;
     protected Problema1_Armadura armaduraEquipada;
+    protected ArrayList<Problema1_EstadoAlterado> estados;
 
     public Problema1_Personaje(String nombre, int vida, int nivel) {
         this.nombre = nombre;
         this.vida = vida;
         this.nivel = nivel;
+        this.estados = new ArrayList<>();
 
     }
 
+    public String agregarEstado(String nombreEstado, int turnos){
+        estados.add(new Problema1_EstadoAlterado(nombreEstado, turnos));
+        return String.format("!% ahora tiene el estado %s por %d turnos", nombre, nombreEstado, turnos);
+    }
+    
+    public boolean actualizarEstado(){
+        boolean puedeAtacar = true;
+        ArrayList<Problema1_EstadoAlterado> estadosVigentes = new ArrayList<>();
+        
+        for (int i = 0; i < estados.size(); i++) {
+            if(estados.get(i).getNombre().equalsIgnoreCase("Envenedado")){
+                vida -= 10;
+                if(vida < 0) vida = 0;
+                System.out.println("[Debuff] Veneno causa 10 de daño a " + nombre + " Vida Actual: " + vida);
+            }else if(estados.get(i).getNombre().equalsIgnoreCase("Congelado")){
+                puedeAtacar = false;
+                System.out.println("[Debuff] " + nombre + " esta congelado y pierde su turno...");
+            }
+            estados.get(i).reducirTurnos();
+            
+            if(estados.get(i).getTurnosRestantes() > 0){
+                estadosVigentes.add(estados.get(i));
+            }else{
+                System.out.println("[Efecto] El estado " + estados.get(i).getNombre() + " ha terminado para " + nombre);
+            }
+        }
+        estados = estadosVigentes;
+        return puedeAtacar;
+    }
+    
+    public int obtenerBonoDaño(){
+        for (int i = 0; i < estados.size(); i++) {
+            if(estados.get(i).getNombre().equalsIgnoreCase("Aumentar Fuerza")){
+                System.out.println("[Buff] ¡Aumentar Fuerza añade 15 de ataque!");
+                return 15;
+            }
+        }
+        return 0;
+    }
+    
     public void agregarAlInventario(Problema1_Objeto obj) {
         inventario.add(obj);
     }
