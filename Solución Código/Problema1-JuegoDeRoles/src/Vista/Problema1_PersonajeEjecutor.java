@@ -39,20 +39,32 @@ public class Problema1_PersonajeEjecutor {
         while (p1.getVida() > 0 && p2.getVida() > 0) {
             System.out.println("");
             System.out.println("TURNO " + turno);
-
-            int danoP1 = p1.atacar();
-            p2.defender(danoP1);
-            System.out.println(p1.getNombre() + " ataca. Genera " + danoP1 + " de dano");
-            System.out.println("Estado de " + p2.getNombre() + " -> Vida restante: " + p2.getVida());
+            
+            boolean p1PuedeAtacar = p1.actualizarEstado();
+            
+            if(p1PuedeAtacar && p1.getVida() > 0){
+                int danoP1 = p1.atacar();
+                p2.defender(danoP1);
+                System.out.println(p1.getNombre() + " ataca. Genera " + danoP1 + " de dano");
+                if (turno == 1) 
+                    System.out.println(p2.agregarEstado("Envenenado", 2)); 
+                System.out.println("Estado de " + p2.getNombre() + " -> Vida restante: " + p2.getVida());
+            }
 
             if (p2.getVida() <= 0) {
                 break;
             }
-
-            int danoP2 = p2.atacar();
-            p1.defender(danoP2);
-            System.out.println(p2.getNombre() + " contrataca. Genera " + danoP2 + " de dano");
-            System.out.println("Estado de " + p1.getNombre() + " -> Vida restante: " + p1.getVida());
+            
+            boolean p2PuedeAtacar = p2.actualizarEstado();
+            
+            if(p2PuedeAtacar && p2.getVida() > 0){
+                int danoP2 = p2.atacar();
+                p1.defender(danoP2);
+                System.out.println(p2.getNombre() + " contrataca. Genera " + danoP2 + " de dano");
+                if (turno == 1) 
+                    System.out.println(p1.agregarEstado("Congelado", 1));
+                System.out.println("Estado de " + p1.getNombre() + " -> Vida restante: " + p1.getVida());
+            }
 
             turno++;
         }
