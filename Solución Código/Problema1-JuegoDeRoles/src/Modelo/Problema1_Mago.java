@@ -1,7 +1,7 @@
-
 package Modelo;
 
 public class Problema1_Mago extends Problema1_Personaje {
+
     private int poderMagico;
 
     public Problema1_Mago(String nombre, int vida, int nivel, int poderMagico) {
@@ -11,7 +11,13 @@ public class Problema1_Mago extends Problema1_Personaje {
 
     @Override
     public int atacar() {
-        return poderMagico * nivel;
+        if (armaEquipada != null) {
+            int bonoArma = armaEquipada.getValor();
+            return (poderMagico * nivel) + bonoArma;
+        } else {
+            int bonoArma = 0;
+            return (poderMagico * nivel) + bonoArma;
+        }
     }
 
     @Override
@@ -19,3 +25,5 @@ public class Problema1_Mago extends Problema1_Personaje {
         return super.toString() + String.format(" | [Mago] Poder Magico: %d", poderMagico);
     }
 }
+    
+

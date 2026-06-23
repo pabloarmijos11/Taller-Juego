@@ -1,5 +1,6 @@
 package Vista;
 
+import Modelo.Problema1_Armadura;
 import Modelo.Problema1_Personaje;
 import Modelo.Problema1_Guerrero;
 import Modelo.Problema1_Mago;
@@ -15,7 +16,7 @@ public class Problema1_PersonajeEjecutor {
         Problema1_Personaje guerrero = new Problema1_Guerrero("Aragorn", 120, 1, 25);
         Problema1_Personaje mago = new Problema1_Mago("Gandalf", 90, 1, 35);
         Problema1_Personaje arquero = new Problema1_Arquero("Legolas", 100, 1, 28);
-        
+
         System.out.println("");
         System.out.println("-------- ESTADO INICIAL DE LOS PERSONAJES --------");
         System.out.println(guerrero.toString());
@@ -24,6 +25,10 @@ public class Problema1_PersonajeEjecutor {
 
         Problema1_Personaje p1 = guerrero;
         Problema1_Personaje p2 = mago;
+        Problema1_Armadura escudo = new Problema1_Armadura("Escudo de Hierro", 10);
+        p2.equipar(escudo);
+        Problema1_Armadura espada = new Problema1_Armadura("Escudo de Hierro", 15);
+        p1.equipar(escudo);
 
         System.out.println("");
         System.out.println("==================================================");
